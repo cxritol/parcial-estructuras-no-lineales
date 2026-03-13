@@ -1,0 +1,54 @@
+import heapq
+from typing import List
+
+
+class Tarea:
+    """
+    Representa una tarea en el sistema.
+    """
+
+    def __init__(self, prioridad: int, timestamp: int, nombre: str) -> None:
+        """
+        Args:
+            prioridad (int): Prioridad de la tarea.
+            timestamp (int): Tiempo de llegada.
+            nombre (str): Nombre de la tarea.
+        """
+        self.prioridad = prioridad
+        self.timestamp = timestamp
+        self.nombre = nombre
+
+    def __lt__(self, other: "Tarea") -> bool:
+        """
+        Permite que heapq ordene las tareas automáticamente.
+        """
+        if self.prioridad == other.prioridad:
+            return self.timestamp < other.timestamp
+        return self.prioridad < other.prioridad
+
+
+class Planificador:
+    """
+    Cola de prioridad para tareas.
+    """
+
+    def __init__(self) -> None:
+        self.heap: List[Tarea] = []
+
+    def agregar_tarea(self, tarea: Tarea) -> None:
+        heapq.heappush(self.heap, tarea)
+
+    def ejecutar(self) -> Tarea:
+        return heapq.heappop(self.heap)
+
+
+# ejemplo
+planificador = Planificador()
+
+planificador.agregar_tarea(Tarea(1, 1, "Kernel"))
+planificador.agregar_tarea(Tarea(3, 2, "Actualizar sistema"))
+planificador.agregar_tarea(Tarea(2, 3, "Enviar datos"))
+
+while planificador.heap:
+    tarea = planificador.ejecutar()
+    print(tarea.nombre)
