@@ -1,2 +1,7 @@
 # parcial-estructuras-no-lineales
-Parcial de Estructuras de Datos No Lineales en Python
+
+Este trabajo presenta la implementación y análisis de diversas estructuras de datos no lineales utilizadas en el desarrollo de sistemas informáticos eficientes. El objetivo principal del proyecto es comprender el funcionamiento y la aplicación práctica de estructuras como árboles N-arios, árboles Trie, tablas hash, heaps y colas con prioridad dentro de distintos problemas computacionales. Cada una de estas estructuras permite resolver necesidades específicas relacionadas con la organización, búsqueda y procesamiento de información.
+
+Los árboles N-arios se emplean para representar estructuras jerárquicas complejas con múltiples relaciones entre nodos. Por su parte, los árboles Trie permiten almacenar y consultar cadenas de texto de manera eficiente mediante la búsqueda por prefijos, siendo especialmente útiles en sistemas de autocompletado y motores de búsqueda. Las tablas hash ofrecen acceso rápido a los datos mediante funciones de dispersión que transforman claves en índices de almacenamiento. Asimismo, los heaps y las colas con prioridad facilitan la gestión de elementos según su nivel de importancia, permitiendo optimizar procesos de planificación y ejecución de tareas.
+
+La integración de estas estructuras demuestra cómo diferentes enfoques de organización de datos pueden combinarse para construir soluciones computacionales más eficientes, escalables y adaptables a diversos contextos tecnológicos.
