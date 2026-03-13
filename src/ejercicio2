@@ -1,0 +1,64 @@
+from typing import Dict, Generator
+
+
+class TrieNode:
+    """
+    Nodo del árbol Trie.
+    """
+
+    def __init__(self) -> None:
+        self.hijos: Dict[str, "TrieNode"] = {}
+        self.fin_palabra: bool = False
+
+
+class Trie:
+    """
+    Implementación de un Trie para autocompletado.
+    """
+
+    def __init__(self) -> None:
+        self.raiz = TrieNode()
+
+    def insertar(self, palabra: str) -> None:
+        """
+        Inserta una palabra en el Trie.
+
+        Args:
+            palabra (str): Palabra a insertar.
+        """
+        nodo = self.raiz
+
+        for letra in palabra:
+            if letra not in nodo.hijos:
+                nodo.hijos[letra] = TrieNode()
+            nodo = nodo.hijos[letra]
+
+        nodo.fin_palabra = True
+
+    def sugerir(self, prefijo: str) -> Generator[str, None, None]:
+        """
+        Genera sugerencias basadas en un prefijo.
+
+        Args:
+            prefijo (str): Prefijo de búsqueda.
+
+        Yields:
+            str: Palabras sugeridas.
+        """
+
+        nodo = self.raiz
+
+        for letra in prefijo:
+            if letra not in nodo.hijos:
+                return
+            nodo = nodo.hijos[letra]
+
+        yield from self._buscar(nodo, prefijo)
+
+    def _buscar(self, nodo: TrieNode, prefijo: str) -> Generator[str, None, None]:
+
+        if nodo.fin_palabra:
+            yield prefijo
+
+        for letra, hijo in nodo.hijos.items():
+            yield from self._buscar(hijo, prefijo + letra)
