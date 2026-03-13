@@ -1,0 +1,53 @@
+from typing import List, Tuple, Optional
+
+
+class HashTable:
+    """
+    Implementación de tabla hash con manejo de colisiones.
+    """
+
+    def __init__(self, size: int = 10) -> None:
+        self.size = size
+        self.table: List[List[Tuple[int, str]]] = [[] for _ in range(size)]
+
+    def _hash(self, key: int) -> int:
+        """
+        Función hash.
+
+        Args:
+            key (int): Clave.
+
+        Returns:
+            int: Índice en la tabla.
+        """
+        return key % self.size
+
+    def __setitem__(self, key: int, value: str) -> None:
+        """
+        Inserta un elemento usando sintaxis tabla[key] = value.
+        """
+
+        index = self._hash(key)
+
+        for i, (k, _) in enumerate(self.table[index]):
+            if k == key:
+                self.table[index][i] = (key, value)
+                return
+
+        self.table[index].append((key, value))
+
+    def __getitem__(self, key: int) -> Optional[str]:
+        """
+        Obtiene un elemento usando tabla[key].
+
+        Raises:
+            KeyError: Si la clave no existe.
+        """
+
+        index = self._hash(key)
+
+        for k, v in self.table[index]:
+            if k == key:
+                return v
+
+        raise KeyError("Clave no encontrada")
