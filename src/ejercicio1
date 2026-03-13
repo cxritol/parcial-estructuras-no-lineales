@@ -1,0 +1,51 @@
+from typing import Dict, Generator
+
+
+class OrganizacionNode:
+    """
+    Nodo para representar una estructura organizacional universitaria.
+    """
+
+    def __init__(self, nombre: str) -> None:
+        """
+        Inicializa el nodo.
+
+        Args:
+            nombre (str): Nombre del nodo organizacional.
+        """
+        self.nombre: str = nombre
+        self.hijos: Dict[str, "OrganizacionNode"] = {}
+
+    def agregar_hijo(self, nodo: "OrganizacionNode") -> None:
+        """
+        Agrega un nodo hijo.
+
+        Args:
+            nodo (OrganizacionNode): Nodo hijo a agregar.
+        """
+        self.hijos[nodo.nombre] = nodo
+
+    def __iter__(self) -> Generator[str, None, None]:
+        """
+        Permite recorrer el árbol con un for.
+
+        Yields:
+            str: Nombre del nodo.
+        """
+        yield self.nombre
+
+        for hijo in self.hijos.values():
+            yield from hijo
+
+
+# ejemplo
+rectoria = OrganizacionNode("Rectoria")
+
+ingenieria = OrganizacionNode("Facultad Ingenieria")
+sistemas = OrganizacionNode("Ingenieria Sistemas")
+
+rectoria.agregar_hijo(ingenieria)
+ingenieria.agregar_hijo(sistemas)
+
+for nodo in rectoria:
+    print(nodo)
